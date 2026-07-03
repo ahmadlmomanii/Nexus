@@ -103,12 +103,37 @@ class LogProcessor(DataProcessor):
             raise ValueError("Improper Log data")
 
 
+class DataStream():
+    def __init__(self):
+        self.processors = []
+
+    def register_processor(self, proc: DataProcessor) -> None:
+        self.processors.append(proc)
+
+    def process_stream(self, stream: list[Any]) -> None:
+        for data in stream:
+            handled = False
+            for processor in self.processors:
+                if processor.validate(data):
+                    handled = True
+                    processor.ingest(data)
+                    break
+            if not handled:
+                print(
+                        "DataStream error - Can't process "
+                        f"element in stream: {data}"
+                        )
+
+    def print_processors_stats(self) -> None:
+        
+
+
 def main() -> None:
     num = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
     try:
-        print("=== Code Nexus - Data Processor ===")
+        print("=== Code Nexus - Data Stream ===")
         print("Testing Numeric Processor...")
         print(f"Trying to validate input '42': {num.validate(42)}")
         print(f"Trying to validate input 'Hello': {num.validate("Hello")}")
@@ -151,3 +176,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
