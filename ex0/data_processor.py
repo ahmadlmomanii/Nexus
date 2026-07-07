@@ -77,16 +77,16 @@ class LogProcessor(DataProcessor):
                     if (
                             not isinstance(key, str)
                             or not isinstance(value, str)
-                        ):
+                            ):
                         return False
             return True
         if isinstance(data, dict):
             for key, value in data.items():
-                    if (
-                            not isinstance(key, str)
-                            or not isinstance(value, str)
+                if (
+                        not isinstance(key, str)
+                        or not isinstance(value, str)
                         ):
-                        return False
+                    return False
             return True
         return False
 
