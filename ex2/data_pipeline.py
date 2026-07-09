@@ -159,22 +159,25 @@ class DataStream():
         for proc in self.processors:
             ls = []
             for i in range(nb):
-                r, v = proc.output()
+                res = proc.output()
+                if res:
+                    ls.append(res)
+                else:
+                    break
+            plugin.process_output(ls)
 
-            
 
-
-class ExportPlugin(Protocol) -> None:
+class ExportPlugin(Protocol):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         pass
 
 
-class CSVPlugin(ExportPlugin) -> None:
+class CSVPlugin(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         pass
 
 
-class JSONPlugin(ExportPlugin) -> None:
+class JSONPlugin(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
         pass
 
