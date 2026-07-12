@@ -107,46 +107,43 @@ def main() -> None:
     num = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
+    print("=== Code Nexus - Data Processor ===")
+    print("Testing Numeric Processor...")
+    print(f"Trying to validate input '42': {num.validate(42)}")
+    print(f"Trying to validate input 'Hello': {num.validate("Hello")}")
+    print("Test invalid ingestion of string",
+            "'foo' without prior validation:")
     try:
-        print("=== Code Nexus - Data Processor ===")
-        print("Testing Numeric Processor...")
-        print(f"Trying to validate input '42': {num.validate(42)}")
-        print(f"Trying to validate input 'Hello': {num.validate("Hello")}")
-        print("Test invalid ingestion of string",
-              "'foo' without prior validation:")
-        try:
-            num.ingest("foo")
-        except ValueError as e:
-            print(f"Got exception: {e}")
-        print("Processing data: [1, 2, 3, 4, 5]")
-        num.ingest([1, 2, 3, 4, 5])
-        print("Extracting 3 values...")
-        for i in range(3):
-            rank, data = num.output()
-            print(f"Numeric value {rank}: {data}")
-        print("\nTesting Text Processor...")
-        print(f"Trying to validate input ’42’: {text.validate(42)}")
-        print("Processing data: [’Hello’, ’Nexus’, ’World’]")
-        print("Extracting 1 value...")
-        text.ingest(["Hello", "Nexus", "World"])
-        rank, data = text.output()
-        print(f"Text value {rank}: {data}")
-        print("Testing Log Processor...")
-        print(f"Trying to validate input ’Hello’: {log.validate("Hello")}")
-        print("Processing data: [{’log_level’: ’NOTICE’, ’log_message’:",
-              "’Connection to server’}, {’log_level’: ’ERROR’,",
-              "’log_message’: ’Unauthorized access!!’}]")
-        log.ingest([
-            {"log_level": "NOTICE", "log_message": "Connection to server"},
-            {"log_level": "ERROR", "log_message": "Unauthorized access!!"}
-            ])
-        print("Extracting 2 values...")
-        rank, data = log.output()
-        print(f"Log entry {rank}: {data}")
-        rank, data = log.output()
-        print(f"Log entry {rank}: {data}")
-    except Exception as e:
-        print(e)
+        num.ingest("foo")
+    except ValueError as e:
+        print(f"Got exception: {e}")
+    print("Processing data: [1, 2, 3, 4, 5]")
+    num.ingest([1, 2, 3, 4, 5])
+    print("Extracting 3 values...")
+    for i in range(3):
+        rank, data = num.output()
+        print(f"Numeric value {rank}: {data}")
+    print("\nTesting Text Processor...")
+    print(f"Trying to validate input '42': {text.validate(42)}")
+    print("Processing data: ['Hello', 'Nexus', 'World']")
+    print("Extracting 1 value...")
+    text.ingest(["Hello", "Nexus", "World"])
+    rank, data = text.output()
+    print(f"Text value {rank}: {data}")
+    print("Testing Log Processor...")
+    print(f"Trying to validate input 'Hello': {log.validate("Hello")}")
+    print("Processing data: [{'log_level': 'NOTICE', 'log_message':",
+            "'Connection to server'}, {'log_level': 'ERROR',",
+            "'log_message': 'Unauthorized access!!'}]")
+    log.ingest([
+        {"log_level": "NOTICE", "log_message": "Connection to server"},
+        {"log_level": "ERROR", "log_message": "Unauthorized access!!"}
+        ])
+    print("Extracting 2 values...")
+    rank, data = log.output()
+    print(f"Log entry {rank}: {data}")
+    rank, data = log.output()
+    print(f"Log entry {rank}: {data}")
 
 
 if __name__ == "__main__":

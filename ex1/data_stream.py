@@ -123,7 +123,7 @@ class LogProcessor(DataProcessor):
             raise ValueError("Improper Log data")
 
 
-class DataStream():
+class DataStream:
     def __init__(self) -> None:
         self.processors: list[DataProcessor] = []
 
